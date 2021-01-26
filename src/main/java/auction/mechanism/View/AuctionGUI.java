@@ -88,6 +88,9 @@ public class AuctionGUI {
 					props.setPromptColor("cyan");
 					terminal.resetToBookmark("auction");
 					try {
+						System.out.print("\033[H\033[2J");
+						System.out.flush();
+						this.printMenuGUI();
 						this.printAuctionDetailsGUI(auction, 1);
 					} catch (Exception e) {
 						terminal.println(e.getMessage());
