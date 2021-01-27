@@ -1529,6 +1529,7 @@ public class AuctionGUI {
 					newEndDate.set(Calendar.HOUR_OF_DAY, hour);
 					newEndDate.set(Calendar.MINUTE, minute);
 					newEndDate.set(Calendar.SECOND, 00);
+					newEndDate.set(Calendar.MILLISECOND, auction.getEndDate().get(Calendar.MILLISECOND));
 					
 					newEndDate = Auction.getLocalTime(newEndDate);
 					
