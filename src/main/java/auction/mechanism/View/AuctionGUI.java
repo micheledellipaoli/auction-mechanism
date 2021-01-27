@@ -85,8 +85,6 @@ public class AuctionGUI {
 					props.setPromptColor("#00ff00");
 					textIO.newStringInputReader().withPattern("(?=a)b").read("\nWaiting a command...");
 				}else{
-					props.setPromptColor("cyan");
-					terminal.resetToBookmark("auction");
 					try {
 						System.out.print("\033[H\033[2J");
 						System.out.flush();

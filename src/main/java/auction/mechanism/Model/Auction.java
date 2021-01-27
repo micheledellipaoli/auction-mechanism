@@ -30,7 +30,7 @@ public class Auction implements Serializable{
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-		// Serve ad effettuare la transizione dallo status ongoing allo status ended, UN'UNICA VOLTA.
+		// Flag che serve ad effettuare la transizione da "ongoing" ad "ended", UN'UNICA VOLTA.
 		this.flagFirstTimeSetStatus = false;
 		this.ownerUsername = ownerUsername;
 		this.winners = new HashMap<String, Double>();		
@@ -44,10 +44,10 @@ public class Auction implements Serializable{
 
 	public void checkDateAndSetStatus() throws Exception {
 		if(this.endDate != null) {
-			if(this.endDate.after(Calendar.getInstance())) {
+			if( Auction.getLocalTime(this.endDate).after(Auction.getLocalTime(Calendar.getInstance())) ) {
 				this.status = Status.ongoing;
 			}else {
-				// Se il flag � false, la transizione non � ancora avvenuta, dunque la si esegue.
+				// Se il flag e' false, la transizione da "ongoing" ad "ended" non e' ancora avvenuta, dunque la si esegue.
 				if(!this.flagFirstTimeSetStatus) {
 					this.flagFirstTimeSetStatus = true;
 					this.status = Status.ended;
