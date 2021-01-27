@@ -633,7 +633,7 @@ public class AuctionControllerTest {
 		String description = "descriptionTest";
 
 		// endDate pari al momento ATTUALE
-		Calendar endDate = Auction.getLocalTime(Calendar.getInstance());
+		Calendar endDate = Calendar.getInstance();
 
 		Auction auction = new Auction(auctionName, description, endDate, 0, 1, owner.getUsername());
 
@@ -1574,7 +1574,7 @@ public class AuctionControllerTest {
 		String description = "descriptionTest";
 
 		// Settiamo al EndDate pari a 10 secondi dal momento in cui l'istanza viene creata.
-		Calendar endDate = Auction.getLocalTime(Calendar.getInstance());
+		Calendar endDate = Calendar.getInstance();
 		long t = endDate.getTimeInMillis();
 		Date endDate1 = new Date(t + (10000));
 		endDate.setTime(endDate1);
