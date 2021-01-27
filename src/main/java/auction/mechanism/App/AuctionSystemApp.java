@@ -22,13 +22,13 @@ public class AuctionSystemApp {
     
     private static PeerDHT peerDHT;
     
-    /*
+    
     @Option(name="-m", aliases="--masterip", usage="the master peer ip address", required=true)
 	private static String master;
 
 	@Option(name="-id", aliases="--identifierpeer", usage="the unique identifier for this peer", required=true)
 	private static int id;
-     */	
+    	
     public static void main(String[] args) throws Exception {
 
         AuctionSystemApp app = new AuctionSystemApp();
@@ -38,10 +38,10 @@ public class AuctionSystemApp {
         	
         	parser.parseArgument(args);
         	
-        	//int peerId = id;
+        	int peerId = id;
         	
-        	String master = "127.0.0.1";
-    		int peerId = 0;
+        	//String master = "127.0.0.1";
+    		//int peerId = 0;
     		
         	
         	int port = 4000;
