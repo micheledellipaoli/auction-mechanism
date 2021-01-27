@@ -1499,7 +1499,7 @@ public class AuctionGUI {
 			String newDescription = "";
 			int newSlots = 0;
 
-			Calendar newEndDate = Calendar.getInstance();
+			Calendar newEndDate = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"));
 
 			if(passwordIsRight) {
 
