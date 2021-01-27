@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
 
 import auction.mechanism.Model.AddressInfo;
 import auction.mechanism.Model.Auction;
@@ -633,7 +634,7 @@ public class AuctionControllerTest {
 		String description = "descriptionTest";
 
 		// endDate pari al momento ATTUALE
-		Calendar endDate = Auction.getLocalTime(Calendar.getInstance());
+		Calendar endDate = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"));
 
 		Auction auction = new Auction(auctionName, description, endDate, 0, 1, owner.getUsername());
 
@@ -1574,7 +1575,7 @@ public class AuctionControllerTest {
 		String description = "descriptionTest";
 
 		// Settiamo al EndDate pari a 10 secondi dal momento in cui l'istanza viene creata.
-		Calendar endDate = Auction.getLocalTime(Calendar.getInstance());
+		Calendar endDate = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"));
 		long t = endDate.getTimeInMillis();
 		Date endDate1 = new Date(t + (10000));
 		endDate.setTime(endDate1);

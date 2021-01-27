@@ -1,15 +1,13 @@
 package auction.mechanism.Model;
 
 import java.io.Serializable;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class Auction implements Serializable{
 
@@ -36,15 +34,15 @@ public class Auction implements Serializable{
 	}
 	
 	// Converte una data dal TimeZone di default del sistema al TimeZone "Europe/Rome"
-	public static Calendar getLocalTime(Calendar date) {		
-	    ZonedDateTime converted = date.toInstant().atZone(ZoneId.systemDefault()).withZoneSameLocal(ZoneId.of(timeZone.toString()));
-	    Calendar finalDate = GregorianCalendar.from(converted);
-	    return finalDate;
+	public static Calendar getLocalTime(Calendar date) {
+		Calendar convertedDate = date;
+		convertedDate.setTimeZone(TimeZone.getTimeZone("Europe/Rome"));
+	    return convertedDate;
 	}
 
 	public void checkDateAndSetStatus() throws Exception {
 		if(this.getEndDate() != null) {
-			if( this.getEndDate().after(Auction.getLocalTime(Calendar.getInstance())) ) {
+			if( this.getEndDate().after(Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"))) ) {
 				this.status = Status.ongoing;
 			}else {
 				// Se il flag e' false, la transizione da "ongoing" ad "ended" non e' ancora avvenuta, dunque la si esegue.
