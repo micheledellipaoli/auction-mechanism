@@ -36,8 +36,8 @@ public class Auction implements Serializable{
 		this.winners = new HashMap<String, Double>();		
 	}
 	
-	public static Calendar getLocalTime(Calendar date) {
-	    ZonedDateTime converted = date.toInstant().atZone(ZoneId.of(timeZone.toString())).withZoneSameLocal(ZoneOffset.UTC);
+	public static Calendar getLocalTime(Calendar date) {		
+	    ZonedDateTime converted = date.toInstant().atZone(ZoneId.systemDefault()).withZoneSameLocal(ZoneId.of(timeZone.toString()));
 	    Calendar finalDate = GregorianCalendar.from(converted);
 	    return finalDate;
 	}
@@ -47,7 +47,7 @@ public class Auction implements Serializable{
 			if(this.endDate.after(Calendar.getInstance())) {
 				this.status = Status.ongoing;
 			}else {
-				// Se il flag è false, la transizione non è ancora avvenuta, dunque la si esegue.
+				// Se il flag ï¿½ false, la transizione non ï¿½ ancora avvenuta, dunque la si esegue.
 				if(!this.flagFirstTimeSetStatus) {
 					this.flagFirstTimeSetStatus = true;
 					this.status = Status.ended;
@@ -156,7 +156,9 @@ public class Auction implements Serializable{
 
 	@SuppressWarnings("static-access")
 	public String getDateCastedToString() {
+		
 		Calendar date = Auction.getLocalTime(this.getEndDate());
+		
 		if(date.get(Calendar.MONTH) == 11) {
 			return date.get(Calendar.DAY_OF_MONTH)+"/12/"+date.get(Calendar.YEAR);
 		}else {
@@ -168,6 +170,7 @@ public class Auction implements Serializable{
 		String result = "";
 		
 		Calendar date = Auction.getLocalTime(this.getEndDate());
+		
 		if(String.valueOf(date.get(Calendar.HOUR_OF_DAY)).length() < 2) {
 			result += "0" + String.valueOf(date.get(Calendar.HOUR_OF_DAY)) + ":";
 		}else {

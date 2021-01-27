@@ -247,12 +247,12 @@ public class AuctionController {
 										}
 										response = true;
 									}else {
-										throw new Exception("Impossible to place the bid. Bid amount is less than the current greatest bid for this auction. Please insert a bid amount greater than the current greatest bid for this auction.");
+										throw new Exception("Impossible to place the bid. \nBid amount is less than the current greatest bid for this auction. \nPlease insert a bid amount greater than the current greatest bid for this auction.");
 									}
 								}
 							}
 						}else{
-							throw new Exception("Impossible to place the bid. The current bid amount is less than reserved price. Please insert a bid amount greater than reserved price.");
+							throw new Exception("Impossible to place the bid. The current bid amount is less than reserved price. \nPlease insert a bid amount greater than reserved price.");
 						}
 					}else {
 						throw new Exception("Impossible to place the bid. User who wants to place the bid can't be the Owner of the Auction ");

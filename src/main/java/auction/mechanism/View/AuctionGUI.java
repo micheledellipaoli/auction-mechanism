@@ -90,7 +90,6 @@ public class AuctionGUI {
 					try {
 						System.out.print("\033[H\033[2J");
 						System.out.flush();
-						this.printMenuGUI();
 						this.printAuctionDetailsGUI(auction, 1);
 					} catch (Exception e) {
 						terminal.println(e.getMessage());
@@ -100,7 +99,7 @@ public class AuctionGUI {
 
 			} else {
 				props.setPromptColor("red");
-				terminal.println("\n\nThis command is not allowed here. You are not in the auction-mechanism session.\n");
+				terminal.println("\n\nThis command is not allowed here.\n");
 				props.setPromptColor("#00ff00");
 			}
 
@@ -129,7 +128,7 @@ public class AuctionGUI {
 
 			} else {
 				props.setPromptColor("red");
-				terminal.println("\n\nThis command is not allowed here. You are not in the auction-mechanism session.\n");
+				terminal.println("\n\nThis command is not allowed here.\n");
 				props.setPromptColor("#00ff00");
 			}
 			textIO.newStringInputReader().withPattern("(?=a)b").read("\nWaiting a command...");
@@ -151,7 +150,7 @@ public class AuctionGUI {
 
 			} else {
 				props.setPromptColor("red");
-				terminal.println("\n\nThis command is not allowed here. You are not in the auction-mechanism session.\n");
+				terminal.println("\n\nThis command is not allowed here.\n");
 				props.setPromptColor("#00ff00");
 			}
 			return new ReadHandlerData(ReadInterruptionStrategy.Action.RESTART).withRedrawRequired(true);
@@ -172,7 +171,7 @@ public class AuctionGUI {
 
 			} else {
 				props.setPromptColor("red");
-				terminal.println("\n\nThis command is not allowed here. You are not in the auction-mechanism session.\n");
+				terminal.println("\n\nThis command is not allowed here.\n");
 				props.setPromptColor("#00ff00");
 			}
 			return new ReadHandlerData(ReadInterruptionStrategy.Action.RESTART).withRedrawRequired(true);
@@ -194,7 +193,7 @@ public class AuctionGUI {
 
 			} else {
 				props.setPromptColor("red");
-				terminal.println("\n\nThis command is not allowed here. You are not in the auction-mechanism session.\n");
+				terminal.println("\n\nThis command is not allowed here.\n");
 				props.setPromptColor("#00ff00");
 			}
 			return new ReadHandlerData(ReadInterruptionStrategy.Action.RESTART).withRedrawRequired(true);
@@ -216,7 +215,7 @@ public class AuctionGUI {
 
 			} else {
 				props.setPromptColor("red");
-				terminal.println("\n\nThis command is not allowed here. You are not in the auction-mechanism session.\n");
+				terminal.println("\n\nThis command is not allowed here.\n");
 				props.setPromptColor("#00ff00");
 			}
 			return new ReadHandlerData(ReadInterruptionStrategy.Action.RESTART).withRedrawRequired(true);
@@ -234,7 +233,7 @@ public class AuctionGUI {
 
 			} else {
 				props.setPromptColor("red");
-				terminal.println("\n\nThis command is not allowed here. You are not in the auction-mechanism session.\n");
+				terminal.println("\n\nThis command is not allowed here.\n");
 				props.setPromptColor("#00ff00");
 			}
 			return new ReadHandlerData(ReadInterruptionStrategy.Action.RESTART).withRedrawRequired(true);
@@ -423,7 +422,7 @@ public class AuctionGUI {
 
 		double reservedPrice = textIO.newDoubleInputReader().withMinVal(0.0).read("\nReserved price");
 
-		int slots = textIO.newIntInputReader().withMinVal(0).read("Slots");
+		int slots = textIO.newIntInputReader().withMinVal(1).read("Slots");
 
 		String owner = user.getUsername();
 
@@ -691,7 +690,7 @@ public class AuctionGUI {
 
 					}else {
 						props.setPromptColor("red");
-						terminal.println("\n\nThis command is not allowed here. You are not in the Placing a Bid session.\n");
+						terminal.println("\n\nThis command is not allowed here.\n");
 						props.setPromptColor("#00ff00");
 					}
 					textIO.newStringInputReader().withPattern("(?=a)b").read("\nWaiting a command...");
@@ -736,7 +735,7 @@ public class AuctionGUI {
 
 						}else {
 							props.setPromptColor("red");
-							terminal.println("\n\nThis command is not allowed here. You are not in the Auction editing session.\n");
+							terminal.println("\n\nThis command is not allowed here.\n");
 							props.setPromptColor("#00ff00");
 						}
 						textIO.newStringInputReader().withPattern("(?=a)b").read("\nWaiting a command...");
@@ -1049,7 +1048,7 @@ public class AuctionGUI {
 				}
 			}else {
 				props.setPromptColor("red");
-				terminal.println("\n\nThis command is not allowed here. You are not in the User editing session.\n");
+				terminal.println("\n\nThis command is not allowed here.\n");
 				props.setPromptColor("#00ff00");
 			}
 			textIO.newStringInputReader().withPattern("(?=a)b").read("\nWaiting a command...");
@@ -1076,7 +1075,7 @@ public class AuctionGUI {
 				}
 			}else {
 				props.setPromptColor("red");
-				terminal.println("\n\nThis command is not allowed here. You are not in the User editing session.\n");
+				terminal.println("\n\nThis command is not allowed here.\n");
 				props.setPromptColor("#00ff00");
 			}
 			textIO.newStringInputReader().withPattern("(?=a)b").read("\nWaiting a command...");
@@ -1102,7 +1101,7 @@ public class AuctionGUI {
 				}
 			}else {
 				props.setPromptColor("red");
-				terminal.println("\n\nThis command is not allowed here. You are not in the User editing session.\n");
+				terminal.println("\n\nThis command is not allowed here.\n");
 				props.setPromptColor("#00ff00");
 			}
 			textIO.newStringInputReader().withPattern("(?=a)b").read("\nWaiting a command...");
@@ -1126,7 +1125,7 @@ public class AuctionGUI {
 				}
 			}else {
 				props.setPromptColor("red");
-				terminal.println("\n\nThis command is not allowed here. You are not in the User editing session.\n");
+				terminal.println("\n\nThis command is not allowed here.\n");
 				props.setPromptColor("#00ff00");
 			}
 			textIO.newStringInputReader().withPattern("(?=a)b").read("\nWaiting a command...");
@@ -1496,6 +1495,7 @@ public class AuctionGUI {
 
 			String newDescription = "";
 			int newSlots = 0;
+			
 			Calendar newEndDate = Calendar.getInstance();
 
 			if(passwordIsRight) {
@@ -1511,7 +1511,8 @@ public class AuctionGUI {
 				terminal.println("\nOld expiration date: " + auction.getDateCastedToString() + " " + auction.getHourCastedToString());
 
 				props.setPromptColor("#00ff00");
-				boolean dateRight = false;			
+				boolean dateRight = false;
+				
 				while(!dateRight) {
 					int day = textIO.newIntInputReader().withMinVal(1).withMaxVal(31).read("Day");
 					Month month = textIO.newEnumInputReader(Month.class).read("Month");
@@ -1525,8 +1526,9 @@ public class AuctionGUI {
 					newEndDate.set(Calendar.HOUR_OF_DAY, hour);
 					newEndDate.set(Calendar.MINUTE, minute);
 					newEndDate.set(Calendar.SECOND, 00);
-
-					if(newEndDate.equals(auction.getEndDate()) || newEndDate.after(auction.getEndDate())) {
+					
+					
+					if( newEndDate.equals(Auction.getLocalTime(auction.getEndDate())) || (newEndDate.after(Auction.getLocalTime(auction.getEndDate()))) ) {
 						dateRight = true;
 					}else {
 						props.setPromptColor("red");

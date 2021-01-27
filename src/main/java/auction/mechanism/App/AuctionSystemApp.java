@@ -38,7 +38,7 @@ public class AuctionSystemApp {
         	
         	parser.parseArgument(args);
         	
-    		int peerId = id;
+        	int peerId = id;
         	
         	//String master = "127.0.0.1";
     		//int peerId = 0;
@@ -49,7 +49,7 @@ public class AuctionSystemApp {
 			peerDHT = new PeerBuilderDHT(peer).start();
 
 			/*
-             Bootstrapping operation finds an existing peer in the overlay network, so that the first connection is addressed with a well known peer called "MasterPeer".
+             Bootstrapping operation finds an existing peer in the overlay network, so that the first connection is addressed with a well known peer called "Master".
              The peer needs to know the IP address where to connect the first time.
 			 */
 
