@@ -408,10 +408,8 @@ public class AuctionGUI {
 			endDate.set(Calendar.HOUR_OF_DAY, hour);
 			endDate.set(Calendar.MINUTE, minute);
 			endDate.set(Calendar.SECOND, 00);
-			
-			endDate = Auction.getLocalTime(endDate);
 
-			if(Auction.getLocalTime(Calendar.getInstance()).before(endDate)) {
+			if(Auction.getLocalTime(Calendar.getInstance()).before(Auction.getLocalTime(endDate))) {
 				dateRight = true;
 			}else {
 				props.setPromptColor("red");
@@ -1530,9 +1528,8 @@ public class AuctionGUI {
 					newEndDate.set(Calendar.MINUTE, minute);
 					newEndDate.set(Calendar.SECOND, 00);
 					
-					newEndDate = Auction.getLocalTime(newEndDate);
 					
-					if( newEndDate.equals(auction.getEndDate()) || newEndDate.after(auction.getEndDate()) ) {
+					if( Auction.getLocalTime(newEndDate).equals(auction.getEndDate()) || Auction.getLocalTime(newEndDate).after(auction.getEndDate()) ) {
 						dateRight = true;
 					}else {
 						props.setPromptColor("red");

@@ -20,7 +20,7 @@ public class Auction implements Serializable{
 	public Auction(String auctionName, String description, Calendar endDate, double reservedPrice, int slots, String ownerUsername){
 		this.auctionName = auctionName;
 		this.description = description;
-		this.endDate = endDate;
+		this.endDate = Auction.getLocalTime(endDate);
 		this.reservedPrice = reservedPrice;
 		this.slots = slots;
 		this.bids = new ArrayList<AuctionBid>();
