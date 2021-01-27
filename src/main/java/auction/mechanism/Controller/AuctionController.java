@@ -406,4 +406,16 @@ public class AuctionController {
 		}
 	}
 
+	
+	public boolean leaveNetwork() {
+		boolean result = false;
+		try {
+			peerDHT.peer().announceShutdown().start().awaitUninterruptibly();
+			result = true;
+		}catch(Exception e){
+			result = false;
+		}
+		return result;
+	}
+
 }

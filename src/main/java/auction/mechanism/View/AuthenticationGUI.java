@@ -252,7 +252,11 @@ public class AuthenticationGUI {
 	}
 
 	private void quitGUI() {
-		System.exit(0);
+		AuctionController ac = new AuctionController(peerDHT);
+		boolean result = ac.leaveNetwork();	
+		if(result) {
+			System.exit(0);
+		}
 	}
 
 }
