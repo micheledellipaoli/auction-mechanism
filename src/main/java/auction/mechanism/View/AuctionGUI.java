@@ -408,6 +408,8 @@ public class AuctionGUI {
 			endDate.set(Calendar.HOUR_OF_DAY, hour);
 			endDate.set(Calendar.MINUTE, minute);
 			endDate.set(Calendar.SECOND, 00);
+			
+			endDate = Auction.getLocalTime(endDate);
 
 			if(Auction.getLocalTime(Calendar.getInstance()).before(endDate)) {
 				dateRight = true;
@@ -1527,7 +1529,8 @@ public class AuctionGUI {
 					newEndDate.set(Calendar.HOUR_OF_DAY, hour);
 					newEndDate.set(Calendar.MINUTE, minute);
 					newEndDate.set(Calendar.SECOND, 00);
-
+					
+					newEndDate = Auction.getLocalTime(newEndDate);
 					
 					if( newEndDate.equals(auction.getEndDate()) || newEndDate.after(auction.getEndDate()) ) {
 						dateRight = true;

@@ -75,7 +75,7 @@ public class Auction implements Serializable{
 	}
 
 	public Calendar getEndDate() {
-		return Auction.getLocalTime(this.endDate);
+		return endDate;
 	}
 
 	public void setEndDate(Calendar endDate) {
