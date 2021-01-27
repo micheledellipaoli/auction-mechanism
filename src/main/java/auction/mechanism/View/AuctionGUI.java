@@ -85,9 +85,10 @@ public class AuctionGUI {
 					props.setPromptColor("#00ff00");
 					textIO.newStringInputReader().withPattern("(?=a)b").read("\nWaiting a command...");
 				}else{
+					System.out.print("\033[H\033[2J");
+					System.out.flush();
+					this.printMenuGUI();
 					try {
-						System.out.print("\033[H\033[2J");
-						System.out.flush();
 						this.printAuctionDetailsGUI(auction, 1);
 					} catch (Exception e) {
 						terminal.println(e.getMessage());
@@ -407,8 +408,10 @@ public class AuctionGUI {
 			endDate.set(Calendar.HOUR_OF_DAY, hour);
 			endDate.set(Calendar.MINUTE, minute);
 			endDate.set(Calendar.SECOND, 00);
+			
+			endDate = Auction.getLocalTime(endDate);
 
-			if(Calendar.getInstance().before(endDate)) {
+			if(Auction.getLocalTime(Calendar.getInstance()).before(endDate)) {
 				dateRight = true;
 			}else {
 				props.setPromptColor("red");
@@ -651,11 +654,11 @@ public class AuctionGUI {
 		TerminalProperties < ? > props = terminal.getProperties();
 
 		if(mode == 1) {
-			
+
 			this.disableUserEditKeyStrokes = true;
 			this.disableAuctionEditKeyStrokes = false;
 			this.disablePlaceABidKeyStrokes = false;
-			
+
 			String keyStrokePlaceABid = "ctrl B";
 
 			if(auction.getStatus().equals(Auction.Status.ongoing) && !auction.getOwnerUsername().equals(user.getUsername())) {
@@ -743,6 +746,7 @@ public class AuctionGUI {
 				}else {
 					props.setPromptColor("red");
 					terminal.println("You can't edit an expired Auction.\n");
+					disableAuctionEditKeyStrokes = true;
 				}
 
 			}else {
@@ -750,11 +754,12 @@ public class AuctionGUI {
 				if(auction.getStatus().equals(Auction.Status.ended)) {
 					props.setPromptColor("red");
 					terminal.println("\nYou can't place a bid on an expired Auction.");
+					disablePlaceABidKeyStrokes = true;
 				}
 			}
 
 		}
-		
+
 		props.setPromptColor("cyan");
 		terminal.println("--------------------------------------------------------------------------------\n");
 		props.setPromptColor("red");
@@ -1493,7 +1498,7 @@ public class AuctionGUI {
 
 			String newDescription = "";
 			int newSlots = 0;
-			
+
 			Calendar newEndDate = Calendar.getInstance();
 
 			if(passwordIsRight) {
@@ -1510,7 +1515,7 @@ public class AuctionGUI {
 
 				props.setPromptColor("#00ff00");
 				boolean dateRight = false;
-				
+
 				while(!dateRight) {
 					int day = textIO.newIntInputReader().withMinVal(1).withMaxVal(31).read("Day");
 					Month month = textIO.newEnumInputReader(Month.class).read("Month");
@@ -1524,9 +1529,9 @@ public class AuctionGUI {
 					newEndDate.set(Calendar.HOUR_OF_DAY, hour);
 					newEndDate.set(Calendar.MINUTE, minute);
 					newEndDate.set(Calendar.SECOND, 00);
+
 					
-					
-					if( newEndDate.equals(Auction.getLocalTime(auction.getEndDate())) || (newEndDate.after(Auction.getLocalTime(auction.getEndDate()))) ) {
+					if( newEndDate.equals(auction.getEndDate()) || newEndDate.after(auction.getEndDate()) ) {
 						dateRight = true;
 					}else {
 						props.setPromptColor("red");
@@ -1543,7 +1548,7 @@ public class AuctionGUI {
 				terminal.println();
 
 			}
-
+			
 			Auction newAuction = auction;
 			newAuction.setDescription(newDescription);
 			newAuction.setEndDate(newEndDate);
@@ -1556,7 +1561,7 @@ public class AuctionGUI {
 	}
 
 	private void logoutGUI() {
-		
+
 		terminal.resetToBookmark("reset");
 		System.out.print("\033[H\033[2J");
 		System.out.flush();
