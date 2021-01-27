@@ -409,7 +409,7 @@ public class AuctionGUI {
 			endDate.set(Calendar.MINUTE, minute);
 			endDate.set(Calendar.SECOND, 00);
 
-			if(Auction.getLocalTime(Calendar.getInstance()).before(endDate)) {
+			if(Auction.getLocalTime(Calendar.getInstance()).before(Auction.getLocalTime(endDate))) {
 				dateRight = true;
 			}else {
 				props.setPromptColor("red");
