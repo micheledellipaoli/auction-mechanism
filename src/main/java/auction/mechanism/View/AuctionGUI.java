@@ -393,7 +393,7 @@ public class AuctionGUI {
 
 		boolean dateRight = false;
 
-		Calendar endDate = Calendar.getInstance();
+		Calendar endDate = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"));
 
 		while(!dateRight) {
 			int day = textIO.newIntInputReader().withMinVal(1).withMaxVal(31).read("Day");
