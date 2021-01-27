@@ -408,8 +408,6 @@ public class AuctionGUI {
 			endDate.set(Calendar.HOUR_OF_DAY, hour);
 			endDate.set(Calendar.MINUTE, minute);
 			endDate.set(Calendar.SECOND, 00);
-			
-			endDate = Auction.getLocalTime(endDate);
 
 			if(Auction.getLocalTime(Calendar.getInstance()).before(endDate)) {
 				dateRight = true;
@@ -957,25 +955,25 @@ public class AuctionGUI {
 						props.setPromptColor("cyan");
 						terminal.print("Country: ");
 						props.setPromptColor("#00ff00");
-						terminal.print(winner.getAddressInfo().getCountry() + ", ");
+						terminal.print(winner.getAddressInfo().getCountry());
 						props.setPromptColor("cyan");
-						terminal.print("City: ");
+						terminal.print(", City: ");
 						props.setPromptColor("#00ff00");
-						terminal.print(winner.getAddressInfo().getCity() + ", ");
+						terminal.print(winner.getAddressInfo().getCity());
 						props.setPromptColor("cyan");
-						terminal.print("Postal Code: ");
+						terminal.print(", Postal Code: ");
 						props.setPromptColor("#00ff00");
-						terminal.print(winner.getAddressInfo().getPostalCode() + ", ");
+						terminal.print(winner.getAddressInfo().getPostalCode());
 						props.setPromptColor("cyan");
-						terminal.print("Street: ");
+						terminal.print(", Street: ");
 						props.setPromptColor("#00ff00");
-						terminal.print(winner.getAddressInfo().getStreet() + " ");
+						terminal.print(winner.getAddressInfo().getStreet());
 						props.setPromptColor("cyan");
-						terminal.print("number: ");
+						terminal.print(", number: ");
 						props.setPromptColor("#00ff00");
-						terminal.print(winner.getAddressInfo().getStreetNumber() + ", ");
+						terminal.print(winner.getAddressInfo().getStreetNumber());
 						props.setPromptColor("cyan");
-						terminal.print("Phone number: ");
+						terminal.print(", Phone number: ");
 						props.setPromptColor("#00ff00");
 						terminal.println(winner.getAddressInfo().getPrefixPhoneNumber() + " " + winner.getAddressInfo().getPhoneNumber() + "\n");
 					}

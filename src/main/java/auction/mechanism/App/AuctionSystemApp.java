@@ -28,7 +28,7 @@ public class AuctionSystemApp {
 
 	@Option(name="-id", aliases="--identifierpeer", usage="the unique identifier for this peer", required=true)
 	private static int id;
-    	
+    
     public static void main(String[] args) throws Exception {
 
         AuctionSystemApp app = new AuctionSystemApp();
