@@ -20,7 +20,7 @@ public class Auction implements Serializable{
 	public Auction(String auctionName, String description, Calendar endDate, double reservedPrice, int slots, String ownerUsername){
 		this.auctionName = auctionName;
 		this.description = description;
-		this.endDate = Auction.getLocalTime(endDate);
+		this.endDate = endDate;
 		this.reservedPrice = reservedPrice;
 		this.slots = slots;
 		this.bids = new ArrayList<AuctionBid>();
@@ -35,7 +35,7 @@ public class Auction implements Serializable{
 		this.winners = new HashMap<String, Double>();		
 	}
 	
-	// Converte una data dal TimeZone di default del sistema a quello "Europe/Rome"
+	// Converte una data dal TimeZone di default del sistema al TimeZone "Europe/Rome"
 	public static Calendar getLocalTime(Calendar date) {		
 	    ZonedDateTime converted = date.toInstant().atZone(ZoneId.systemDefault()).withZoneSameLocal(ZoneId.of(timeZone.toString()));
 	    Calendar finalDate = GregorianCalendar.from(converted);
