@@ -605,7 +605,7 @@ public class AuctionControllerTest {
 	public void placeABidTest3() throws Exception {
 		/*
 		Effettua la registrazione di un User owner, di un User bidder, e di un'Auction con endDate pari al momento ATTUALE. 
-        Automaticamente, il costruttore dell'oggetto Auction setta lo status della Auction a "ended", dunque non sar� possibile effettuare un'offerta.
+        Automaticamente, il costruttore dell'oggetto Auction setta lo status della Auction a "ended", dunque non sara' possibile effettuare un'offerta.
 		Pertanto, il metodo placeABid fallisce.
 		 */
 
@@ -633,7 +633,7 @@ public class AuctionControllerTest {
 		String description = "descriptionTest";
 
 		// endDate pari al momento ATTUALE
-		Calendar endDate = Calendar.getInstance();
+		Calendar endDate = Auction.getLocalTime(Calendar.getInstance());
 
 		Auction auction = new Auction(auctionName, description, endDate, 0, 1, owner.getUsername());
 
