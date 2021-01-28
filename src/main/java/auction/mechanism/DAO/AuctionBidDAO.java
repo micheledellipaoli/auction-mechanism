@@ -2,11 +2,9 @@ package auction.mechanism.DAO;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import auction.mechanism.Exception.AuctionNameAlreadyTakenException;
-import auction.mechanism.Model.Auction;
 import auction.mechanism.Model.AuctionBid;
 import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.FuturePut;
@@ -73,10 +71,10 @@ public class AuctionBidDAO {
 
 		if (getAll == null) {
 			HashMap <String, AuctionBid> newHashMap = new HashMap<String, AuctionBid>();
-			newHashMap.put(auctionBid.getAuctionBidID(), auctionBid);
+			newHashMap.put(auctionBid.getAuctionBidID(peerDHT), auctionBid);
 			FuturePut fp1 = peerDHT.put(Number160.createHash("getAll")).data(new Data(newHashMap)).start().awaitUninterruptibly();
 			if(fp1.isSuccess()) {
-				FuturePut fp2 = peerDHT.put(Number160.createHash(auctionBid.getAuctionBidID())).data(new Data(auctionBid)).start().awaitUninterruptibly();
+				FuturePut fp2 = peerDHT.put(Number160.createHash(auctionBid.getAuctionBidID(peerDHT))).data(new Data(auctionBid)).start().awaitUninterruptibly();
 				if(!fp2.isSuccess()) {
 					throw new Exception("An error occured during the creation of the AuctionBid. Please try again.");
 				}
@@ -85,7 +83,7 @@ public class AuctionBidDAO {
 			}
 		}else{
 			// Inserimento dell'auction nella hashMap locale "getAll"
-			Object response = getAll.putIfAbsent(auctionBid.getAuctionBidID(), auctionBid);
+			Object response = getAll.putIfAbsent(auctionBid.getAuctionBidID(peerDHT), auctionBid);
 			if(response == null) {
 				// Remove di getAll
 				FutureRemove fr = peerDHT.remove(Number160.createHash("getAll")).start().awaitUninterruptibly();
@@ -94,7 +92,7 @@ public class AuctionBidDAO {
 					FuturePut fp3 = peerDHT.put(Number160.createHash("getAll")).data(new Data(getAll)).start().awaitUninterruptibly();
 					if(fp3.isSuccess()) {
 						// Put dell'auction
-						FuturePut fp4 = peerDHT.put(Number160.createHash(auctionBid.getAuctionBidID())).putIfAbsent().data(new Data(auctionBid)).start().awaitUninterruptibly();
+						FuturePut fp4 = peerDHT.put(Number160.createHash(auctionBid.getAuctionBidID(peerDHT))).putIfAbsent().data(new Data(auctionBid)).start().awaitUninterruptibly();
 						if(!fp4.isSuccess()) {
 							throw new Exception("An error occured during the creation of the AuctionBid. Please try again.");
 						}

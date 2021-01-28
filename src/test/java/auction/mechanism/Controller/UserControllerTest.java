@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -88,7 +87,7 @@ public class UserControllerTest {
         
         UserController uc = new UserController(peerDHT);
         boolean response1 = uc.registerUser(x);
-        // Prova a registrare un'Auction con username gi� registrato. La response � false, e lancia una AuctionNameAlreadyTakenException.
+        // Prova a registrare un'Auction con username gia' registrato. La response e' false, e lancia una UsernameAlreadyTakenException.
         boolean response2 = uc.registerUser(y);
         
         assertEquals(true, response1);
@@ -218,7 +217,7 @@ public class UserControllerTest {
         
         assertEquals(true, response);
         
-        // Prova ad effettuare la get di un User cancellato. Lancia una UserNotFoundException
+        // Prova ad effettuare la get di un User cancellato. Lancia una UserNotFoundException.
         assertNull(uc.getUser(x.getUsername()));
         assertFalse(x.equals(uc.getUser(x.getUsername())));
     }

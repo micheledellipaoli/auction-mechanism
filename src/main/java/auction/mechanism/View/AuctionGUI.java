@@ -7,13 +7,9 @@ import auction.mechanism.Model.Auction;
 import auction.mechanism.Model.AuctionBid;
 import auction.mechanism.Model.User;
 import net.tomp2p.dht.PeerDHT;
-import auction.mechanism.App.AuctionSystemApp;
 import auction.mechanism.Controller.AuctionController;
 import auction.mechanism.Controller.UserController;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Month;
 import java.util.*;
 
@@ -524,7 +520,6 @@ public class AuctionGUI {
 		this.disableAuctionEditKeyStrokes = true;
 		this.disablePlaceABidKeyStrokes = true;
 
-		AuctionController ac = new AuctionController(peerDHT);
 		UserController uc = new UserController(peerDHT);
 
 		TerminalProperties < ? > props = terminal.getProperties();
@@ -564,7 +559,6 @@ public class AuctionGUI {
 		this.disableAuctionEditKeyStrokes = true;
 		this.disablePlaceABidKeyStrokes = true;
 
-		AuctionController ac = new AuctionController(peerDHT);
 		UserController uc = new UserController(peerDHT);
 
 		TerminalProperties < ? > props = terminal.getProperties();
@@ -604,7 +598,6 @@ public class AuctionGUI {
 		this.disableAuctionEditKeyStrokes = true;
 		this.disablePlaceABidKeyStrokes = true;
 
-		AuctionController ac = new AuctionController(peerDHT);
 		UserController uc = new UserController(peerDHT);
 
 		TerminalProperties < ? > props = terminal.getProperties();
@@ -667,7 +660,7 @@ public class AuctionGUI {
 				terminal.println("Press " + keyStrokePlaceABid + " to place a bid on the current auction.");
 
 				// Handler to place a bid on the Auction.
-				boolean placeABidStroke = terminal.registerHandler(keyStrokePlaceABid, t -> {
+				terminal.registerHandler(keyStrokePlaceABid, t -> {
 					if (!disablePlaceABidKeyStrokes) {
 						if (!terminal.resetToBookmark("auction")) {
 							System.out.print("\033[H\033[2J");

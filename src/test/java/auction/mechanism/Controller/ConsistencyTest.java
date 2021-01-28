@@ -68,7 +68,7 @@ public class ConsistencyTest {
 			}
 		}
 		
-		// Il peer 0 elimina tutte le Auction gi� registrate da altri test per evitare conflitti.
+		// Il peer 0 elimina tutte le Auction gia' registrate da altri test per evitare conflitti.
 		AuctionController ac = new AuctionController(peers[0]);
 		List<String> auctionNames = ac.getAllAuctionNames();
 		if(auctionNames!=null && !auctionNames.isEmpty()) {
@@ -179,9 +179,9 @@ public class ConsistencyTest {
 		String description1 = "descriptionTest1";
 		String description2 = "descriptionTest2";
 
-		// Settiamo al EndDate pari al 14/01/2022, ore: 11.20
+		// Settiamo al EndDate pari al 14/01/2025, ore: 11.20
 		Calendar endDate = Calendar.getInstance();
-		endDate.set(2022, 0, 14, 11, 20);
+		endDate.set(2025, 0, 14, 11, 20);
 
 		Auction x = new Auction(auctionName, description1, endDate, 0, 1, owner.getUsername());
 		Auction y = new Auction(auctionName, description2, endDate, 0, 1, owner.getUsername());
@@ -200,7 +200,7 @@ public class ConsistencyTest {
 
 			if(i==1) {
 				// Il peer 1 tenta la registrazione dell'Auction y.
-				//La response � false, e lancia una AuctionNameAlreadyTakenException.
+				//La response e' false, e lancia una AuctionNameAlreadyTakenException.
 				boolean response1 = ac.registerAuction(y);
 				assertEquals(false, response1);
 			}
@@ -405,9 +405,9 @@ public class ConsistencyTest {
 
 		String description1 = "descriptionTest";
 
-		// Settiamo al EndDate pari al 14/01/2022, ore: 11.20
+		// Settiamo al EndDate pari al 14/01/2025, ore: 11.20
 		Calendar endDate = Calendar.getInstance();
-		endDate.set(2022, 0, 14, 11, 20);
+		endDate.set(2025, 0, 14, 11, 20);
 
 		Auction x = new Auction(auctionName, description1, endDate, 0, 3, owner.getUsername());
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import auction.mechanism.Controller.AuctionController;
+import net.tomp2p.dht.PeerDHT;
  
 public class AuctionBid implements Serializable{
 
@@ -15,12 +16,13 @@ public class AuctionBid implements Serializable{
 		this.auctionName = auctionName; 
 		this.username = username;
 		this.bidAmount = bidAmount;
-	}
+	}	
 	
-	public String getAuctionBidID() {
+	public String getAuctionBidID(PeerDHT peerDHT) {
 		List<AuctionBid> list = null;
+		AuctionController ac = new AuctionController(peerDHT);
 		try {
-			list = AuctionController.getAuctionBidsByAuctionAndUsername(this.getAuctionName(), this.getUsername());
+			list = ac.getAuctionBidsByAuctionAndUsername(this.getAuctionName(), this.getUsername());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -34,7 +36,6 @@ public class AuctionBid implements Serializable{
 		}		
 		return this.getAuctionName()+"|"+this.getUsername()+"|"+count;
 	}
-	
 
 	public String getAuctionName() {
 		return auctionName;

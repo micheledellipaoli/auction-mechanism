@@ -98,9 +98,9 @@ public class AuctionControllerTest {
 		String auctionName = "auctionTest1";
 		String description = "descriptionTest";
 
-		// Settiamo al EndDate pari al 14/01/2022, ore: 11.20
+		// Settiamo al EndDate pari al 14/01/2025, ore: 11.20
 		Calendar endDate = Calendar.getInstance();
-		endDate.set(2022, 0, 14, 11, 20);
+		endDate.set(2025, 0, 14, 11, 20);
 
 		Auction x = new Auction(auctionName, description, endDate, 0, 1, owner.getUsername());
 
@@ -142,9 +142,9 @@ public class AuctionControllerTest {
 		String auctionName = "auctionRegisterAuctionTest2";
 		String description = "descriptionTest";
 
-		// Settiamo al EndDate pari al 14/01/2022, ore: 11.20
+		// Settiamo al EndDate pari al 14/01/2025, ore: 11.20
 		Calendar endDate = Calendar.getInstance();
-		endDate.set(2022, 0, 14, 11, 20);
+		endDate.set(2025, 0, 14, 11, 20);
 
 		//ReservedPrice MINORE di 0.
 		double reservedPrice = -1.0;
@@ -155,7 +155,7 @@ public class AuctionControllerTest {
 		boolean response1 = am.registerAuction(auction);
 
 		assertEquals(false, response1);
-		//Il metodo getAuction lancia un'eccezione poich� tenta di ottenere un'Auction non registrata.
+		//Il metodo getAuction lancia un'eccezione poiche' tenta di ottenere un'Auction non registrata.
 		assertNull(am.getAuction(auctionName));
 
 		List<Auction> auctionOwned = null;
@@ -203,7 +203,7 @@ public class AuctionControllerTest {
 
 		AuctionController ac = new AuctionController(peerDHT);
 		boolean response1 = ac.registerAuction(x);
-		// Prova a registrare un'Auction con auctionName gi� registrato. La response � false, e lancia una AuctionNameAlreadyTakenException.
+		// Prova a registrare un'Auction con auctionName gia' registrato. La response e' false, e lancia una AuctionNameAlreadyTakenException.
 		boolean response2 = ac.registerAuction(y);
 
 		assertEquals(true, response1);
@@ -327,7 +327,7 @@ public class AuctionControllerTest {
 			assertNotNull(ac.getAuction(auctionName));
 			assertTrue(x.equals(ac.getAuction(x.getAuctionName())));
 
-			// Prova ad effettuare l'update di un'Auction non registrata. La response � pari a false e lancia un'eccezione.
+			// Prova ad effettuare l'update di un'Auction non registrata. La response e' pari a false e lancia un'eccezione.
 			Auction notRegistered = new Auction("notRegistered", description1, Calendar.getInstance(), 0, 1, owner.getUsername());
 			boolean response3 = false;
 			response3 = ac.updateAuction(notRegistered);
@@ -404,9 +404,9 @@ public class AuctionControllerTest {
 		String auctionName = "auctionPlaceABidTest1";
 		String description = "descriptionTest";
 
-		// Settiamo al EndDate pari al 14/01/2022, ore: 11.20
+		// Settiamo al EndDate pari al 14/01/2025, ore: 11.20
 		Calendar endDate = Calendar.getInstance();
-		endDate.set(2022, 0, 14, 11, 20);
+		endDate.set(2025, 0, 14, 11, 20);
 
 		Auction auction = new Auction(auctionName, description, endDate, 0, 1, owner.getUsername());
 
@@ -501,7 +501,7 @@ public class AuctionControllerTest {
 		/*
 		Effettua la registrazione di un User owner e di un'Auction.
         L'User owner dell'Auction prova ad effettuare un'offerta alla sua stessa Auction.
-        Il metodo placeABid fallise, in quanto l'owner non pu� piazzare un'offerta sulla sua Auction.
+        Il metodo placeABid fallise, in quanto l'owner non puo' piazzare un'offerta sulla sua Auction.
 		 */
 
 
@@ -527,9 +527,9 @@ public class AuctionControllerTest {
 		String auctionName = "auctionPlaceABidTest2";
 		String description = "descriptionTest";
 
-		// Settiamo al EndDate pari al 14/01/2022, ore: 11.20
+		// Settiamo al EndDate pari al 14/01/2025, ore: 11.20
 		Calendar endDate = Calendar.getInstance();
-		endDate.set(2022, 0, 14, 11, 20);
+		endDate.set(2025, 0, 14, 11, 20);
 
 		Auction auction = new Auction(auctionName, description, endDate, 0, 1, owner.getUsername());
 
@@ -755,9 +755,9 @@ public class AuctionControllerTest {
 		String auctionName = "auctionPlaceABidTest4";
 		String description = "descriptionTest";
 
-		// Settiamo al EndDate pari al 14/01/2022, ore: 11.20
+		// Settiamo al EndDate pari al 14/01/2025, ore: 11.20
 		Calendar endDate = Calendar.getInstance();
-		endDate.set(2022, 0, 14, 11, 20);
+		endDate.set(2025, 0, 14, 11, 20);
 
 		double reservedPrice = 50.0;
 		Auction auction = new Auction(auctionName, description, endDate, reservedPrice, 1, owner.getUsername());
@@ -830,7 +830,7 @@ public class AuctionControllerTest {
 		}
 		assertNull(auctionBidsByAuctionAndUsername);
 
-		// Ottiene la pi� alta offerta piazzata sull'Auction auction dall'User bidder.
+		// Ottiene la piu' alta offerta piazzata sull'Auction auction dall'User bidder.
 		AuctionBid greatestAuctionBidPlacedByAnUser = null;
 		try {
 			greatestAuctionBidPlacedByAnUser = ac.getTheHighestAuctionBidPlacedByAnUser(auction.getAuctionName(), bidder.getUsername());
@@ -839,7 +839,7 @@ public class AuctionControllerTest {
 		}
 		assertNull(greatestAuctionBidPlacedByAnUser);
 
-		// Ottiene la lista delle Auction alle quali ha partecipato l'User bidder
+		// Ottiene la lista delle Auction alle quali ha partecipato l'User bidder.
 		List<Auction> auctionJoined = null;
 		try {
 			auctionJoined = uc.getAuctionsJoined(bidder.getUsername());
@@ -853,7 +853,7 @@ public class AuctionControllerTest {
 	public void placeABidTest5() throws Exception {
 		/*
     	Effettua la registrazione di un User owner, di un User bidder, e di un'Auction.
-    	L'User bidder prova ad effettuare un'offerta ma NON � ABILITATO ad effettuare l'offerta, in quanto la sua email PayPal ha un formato errato.
+    	L'User bidder prova ad effettuare un'offerta ma NON E' ABILITATO ad effettuare l'offerta, in quanto la sua email PayPal ha un formato errato.
     	Pertanto, il metodo placeABid fallisce e l'offerta auctionBid non viene effettuata.
 		 */
 
@@ -878,9 +878,9 @@ public class AuctionControllerTest {
 		String auctionName = "auctionPlaceABidTest5";
 		String description = "descriptionTest";
 
-		// Settiamo al EndDate pari al 14/01/2022, ore: 11.20
+		// Settiamo al EndDate pari al 14/01/2025, ore: 11.20
 		Calendar endDate = Calendar.getInstance();
-		endDate.set(2022, 0, 14, 11, 20);
+		endDate.set(2025, 0, 14, 11, 20);
 
 		Auction auction = new Auction(auctionName, description, endDate, 0, 1, owner.getUsername());
 
@@ -954,7 +954,7 @@ public class AuctionControllerTest {
 		}
 		assertNull(auctionBidsByAuctionAndUsername);
 
-		// Ottiene la pi� alta offerta piazzata sull'Auction auction dall'User bidder.
+		// Ottiene la piu' alta offerta piazzata sull'Auction auction dall'User bidder.
 		AuctionBid greatestAuctionBidPlacedByAnUser = null;
 		try {
 			greatestAuctionBidPlacedByAnUser = ac.getTheHighestAuctionBidPlacedByAnUser(auction.getAuctionName(), bidder.getUsername());
@@ -978,7 +978,7 @@ public class AuctionControllerTest {
 		/*
     	Effettua la registrazione di un User owner, di un User bidder, e di un'Auction.
     	Lo STESSO User bidder prova a piazzare due AuctionBid.
-    	La seconda volta che prova ad effettuare l'offerta, il metodo placeABid fallisce poich� ha gi� effettuato un'offerta che risulta momentaneamente vincente.
+    	La seconda volta che prova ad effettuare l'offerta, il metodo placeABid fallisce poiche' ha gia' effettuato un'offerta che risulta momentaneamente vincente.
 		 */
 
 
@@ -1002,9 +1002,9 @@ public class AuctionControllerTest {
 		String auctionName = "auctionPlaceABidTest6";
 		String description = "descriptionTest";
 
-		// Settiamo al EndDate pari al 14/01/2022, ore: 11.20
+		// Settiamo al EndDate pari al 14/01/2025, ore: 11.20
 		Calendar endDate = Calendar.getInstance();
-		endDate.set(2022, 0, 14, 11, 20);
+		endDate.set(2025, 0, 14, 11, 20);
 
 		double reservedPrice = 0;
 		Auction auction = new Auction(auctionName, description, endDate, reservedPrice, 1, owner.getUsername());
@@ -1077,7 +1077,7 @@ public class AuctionControllerTest {
 		}
 		assertNotNull(auctionBidsByAuctionAndUsername);
 
-		// Ottiene la pi� alta offerta piazzata sull'Auction auction dall'User bidder.
+		// Ottiene la piu' alta offerta piazzata sull'Auction auction dall'User bidder.
 		AuctionBid greatestAuctionBidPlacedByAnUser = null;
 		try {
 			greatestAuctionBidPlacedByAnUser = ac.getTheHighestAuctionBidPlacedByAnUser(auction.getAuctionName(), bidder.getUsername());
@@ -1109,7 +1109,7 @@ public class AuctionControllerTest {
 			response4 = false;
 		}
 
-		assertEquals(true, response3);
+		assertEquals(false, response4);
 
 
 		// Ottiene la lista delle Bid piazzate sull'Auction.
@@ -1181,9 +1181,9 @@ public class AuctionControllerTest {
 		String auctionName = "auctionPlaceABidTest7";
 		String description = "descriptionTest";
 
-		// Settiamo al EndDate pari al 14/01/2022, ore: 11.20
+		// Settiamo al EndDate pari al 14/01/2025, ore: 11.20
 		Calendar endDate = Calendar.getInstance();
-		endDate.set(2022, 0, 14, 11, 20);
+		endDate.set(2025, 0, 14, 11, 20);
 
 		double reservedPrice = 0;
 		Auction auction = new Auction(auctionName, description, endDate, reservedPrice, 1, owner.getUsername());
@@ -1272,7 +1272,7 @@ public class AuctionControllerTest {
 		}
 		assertNotNull(auctionBidsByAuctionAndUsername1);
 
-		// Ottiene la pi� alta offerta piazzata sull'Auction auction dall'User bidder1.
+		// Ottiene la piu' alta offerta piazzata sull'Auction auction dall'User bidder1.
 		AuctionBid greatestAuctionBidPlacedByAnUser1 = null;
 		try {
 			greatestAuctionBidPlacedByAnUser1 = ac.getTheHighestAuctionBidPlacedByAnUser(auction.getAuctionName(), bidder1.getUsername());
@@ -1321,7 +1321,7 @@ public class AuctionControllerTest {
 		List<AuctionBid> auctionBidsByAuctionAndUsername2 = null;
 		try {
 			// L'user bidder2 ha provato ad effettuare un'offerta con bidAmount minore del reservedPrice. Per tale motivo, il metodo placeABid non registra l'offerta.
-			// Pertanto, non vi � alcuna offerta piazzata sull'asta selezionata, quindi il metodo getAuctionBidsByAuctionAndUsername() lancia un'eccezione.
+			// Pertanto, non vi e' alcuna offerta piazzata sull'asta selezionata, quindi il metodo getAuctionBidsByAuctionAndUsername() lancia un'eccezione.
 			auctionBidsByAuctionAndUsername2 = ac.getAuctionBidsByAuctionAndUsername(auction.getAuctionName(), bidder2.getUsername());
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -1332,7 +1332,7 @@ public class AuctionControllerTest {
 		AuctionBid greatestAuctionBidPlacedByAnUser2 = null;
 		try {
 			// L'user bidder2 ha provato ad effettuare un'offerta con bidAmount minore del reservedPrice. Per tale motivo, il metodo placeABid non registra l'offerta.
-			// Pertanto, non vi � alcuna offerta piazzata sull'asta selezionata, quindi il metodo getTheGreatestAuctionBidPlacedByAnUser() lancia un'eccezione.
+			// Pertanto, non vi e' alcuna offerta piazzata sull'asta selezionata, quindi il metodo getTheGreatestAuctionBidPlacedByAnUser() lancia un'eccezione.
 			greatestAuctionBidPlacedByAnUser2 = ac.getTheHighestAuctionBidPlacedByAnUser(auction.getAuctionName(), bidder2.getUsername());
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -1380,9 +1380,9 @@ public class AuctionControllerTest {
 		String auctionName = "auctionPlaceABidTest8";
 		String description = "descriptionTest";
 
-		// Settiamo al EndDate pari al 14/01/2022, ore: 11.20
+		// Settiamo al EndDate pari al 14/01/2025, ore: 11.20
 		Calendar endDate = Calendar.getInstance();
-		endDate.set(2022, 0, 14, 11, 20);
+		endDate.set(2025, 0, 14, 11, 20);
 
 		double reservedPrice = 0;
 		Auction auction = new Auction(auctionName, description, endDate, reservedPrice, 1, owner.getUsername());
@@ -1519,7 +1519,7 @@ public class AuctionControllerTest {
 		}
 		assertNotNull(auctionBidsByAuctionAndUsername2);
 
-		// Ottiene la pi� alta offerta piazzata sull'Auction auction dall'User bidder2.
+		// Ottiene la piu' alta offerta piazzata sull'Auction auction dall'User bidder2.
 		AuctionBid greatestAuctionBidPlacedByAnUser2 = null;
 		try {
 			greatestAuctionBidPlacedByAnUser2 = ac.getTheHighestAuctionBidPlacedByAnUser(auction.getAuctionName(), bidder2.getUsername());
@@ -1549,8 +1549,8 @@ public class AuctionControllerTest {
 
     	Si mette in pausa il test per 10 secondi, in modo da far scadere l'asta.
     	bidder3 e bidder2 risultano vincitori dell'asta.
-    	bidder3 dovr� pagare il prezzo offerto da bidder2, ovvero 15.
-    	bidder2 dovr� pagare il prezzo offerto da bidder1, ovvero 10.
+    	bidder3 dovra' pagare il prezzo offerto da bidder2, ovvero 15.
+    	bidder2 dovra' pagare il prezzo offerto da bidder1, ovvero 10.
 		 */
 
 
@@ -1635,7 +1635,7 @@ public class AuctionControllerTest {
 		String password3 = "passwordTest";
 		AddressInfo addressInfo3 = new AddressInfo("Italy", "Marcianise", "81025", "Via G. Verdi", "5", "+39", "3398024671");
 		String emailPayPal3 = "angelobianchi@gmail.com";
-		User bidder3 = new User(username3, password3, addressInfo3, emailPayPal2);
+		User bidder3 = new User(username3, password3, addressInfo3, emailPayPal3);
 
 		boolean response4 = uc.registerUser(bidder3);
 
@@ -1678,7 +1678,7 @@ public class AuctionControllerTest {
 		}
 		assertNotNull(auctionBidsByAuctionAndUsername1);
 
-		// Ottiene la pi� alta offerta piazzata sull'Auction auction dall'User bidder1.
+		// Ottiene la piu' alta offerta piazzata sull'Auction auction dall'User bidder1.
 		AuctionBid greatestAuctionBidPlacedByAnUser1 = null;
 		try {
 			greatestAuctionBidPlacedByAnUser1 = ac.getTheHighestAuctionBidPlacedByAnUser(auction.getAuctionName(), bidder1.getUsername());
@@ -1731,7 +1731,7 @@ public class AuctionControllerTest {
 		}
 		assertNotNull(auctionBidsByAuctionAndUsername2);
 
-		// Ottiene la pi� alta offerta piazzata sull'Auction auction dall'User bidder2.
+		// Ottiene la piu' alta offerta piazzata sull'Auction auction dall'User bidder2.
 		AuctionBid greatestAuctionBidPlacedByAnUser2 = null;
 		try {
 			greatestAuctionBidPlacedByAnUser2 = ac.getTheHighestAuctionBidPlacedByAnUser(auction.getAuctionName(), bidder2.getUsername());
@@ -1781,14 +1781,14 @@ public class AuctionControllerTest {
 		}
 		assertNotNull(auctionBidsByAuctionAndUsername3);
 
-		// Ottiene la pi� alta offerta piazzata sull'Auction auction dall'User bidder3.
+		// Ottiene la piu' alta offerta piazzata sull'Auction auction dall'User bidder3.
 		AuctionBid greatestAuctionBidPlacedByAnUser3 = null;
 		try {
 			greatestAuctionBidPlacedByAnUser3 = ac.getTheHighestAuctionBidPlacedByAnUser(auction.getAuctionName(), bidder3.getUsername());
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		assertNotNull(greatestAuctionBidPlacedByAnUser2);
+		assertNotNull(greatestAuctionBidPlacedByAnUser3);
 
 		// Ottiene la lista delle Auction alle quali ha partecipato l'User bidder3.	
 		List<Auction> auctionJoined3 = null;

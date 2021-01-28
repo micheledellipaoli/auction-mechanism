@@ -8,8 +8,7 @@ import auction.mechanism.DAO.*;
 import auction.mechanism.Model.*;
 import net.tomp2p.dht.PeerDHT;
 
-public class AuctionController {
-
+public class AuctionController implements AuctionControllerInterface{
 
 	private static PeerDHT peerDHT;
 
@@ -17,7 +16,7 @@ public class AuctionController {
 		AuctionController.peerDHT = peerDHT;
 	}
 
-	public static boolean registerAuction(Auction auction){
+	public boolean registerAuction(Auction auction){
 		AuctionDAO auctionDAO = AuctionDAO.getInstance(peerDHT);
 		boolean response = true;
 		try{
@@ -40,22 +39,22 @@ public class AuctionController {
 			return null;
 		}
 	}
-	 */
+	*/
 
-	public static Auction getAuction(String auctionName){
+	public Auction getAuction(String auctionName){
 		AuctionDAO auctionDAO = AuctionDAO.getInstance(peerDHT);
 		try{
 			Auction auction = auctionDAO.read(auctionName);
-			Auction.Status before = AuctionController.checkAuctionStatus(auction);
+			Auction.Status before = this.checkAuctionStatus(auction);
 			auction = auctionDAO.read(auctionName);
-			AuctionController.updateAuctionWinners(auction, before);
+			this.updateAuctionWinners(auction, before);
 			return auction = auctionDAO.read(auctionName);
 		}catch(Exception e) {
 			return null;
 		}
 	}
 
-	public static List <String> getAllAuctionNames(){
+	public List <String> getAllAuctionNames(){
 		AuctionDAO auctionDAO = AuctionDAO.getInstance(peerDHT);
 		try{
 			return auctionDAO.readAllAuctionNames();
@@ -64,7 +63,7 @@ public class AuctionController {
 		}
 	}
 
-	public static List <Auction> getAllAuctions(){
+	public List <Auction> getAllAuctions(){
 		List<String> allAuctionNames = null;
 		List<Auction> allAuctions = null;
 		try{
@@ -86,7 +85,7 @@ public class AuctionController {
 		}
 	}
 
-	public static List<Auction> getOngoingAuctions() throws Exception{
+	public List<Auction> getOngoingAuctions() throws Exception{
 		List<Auction> allAuctions = null;
 		List<Auction> ongoingAuctions = null;
 		try {
@@ -109,7 +108,7 @@ public class AuctionController {
 		}	
 	}
 
-	public static List<Auction> getExpiredAuctions() throws Exception{
+	public List<Auction> getExpiredAuctions() throws Exception{
 		List<Auction> allAuctions = null;
 		List<Auction> expiredAuctions = null;
 		try {
@@ -132,7 +131,7 @@ public class AuctionController {
 		}	
 	}
 
-	public static boolean updateAuction(Auction newAuction){
+	public boolean updateAuction(Auction newAuction){
 		AuctionDAO auctionDAO = AuctionDAO.getInstance(peerDHT);
 		try{
 			auctionDAO.update(newAuction);
@@ -143,7 +142,7 @@ public class AuctionController {
 		}
 	}
 
-	public static boolean deleteAuction(String auctionName){
+	public boolean deleteAuction(String auctionName){
 		AuctionDAO auctionDAO = AuctionDAO.getInstance(peerDHT);
 		try{
 			auctionDAO.delete(auctionName);
@@ -154,13 +153,14 @@ public class AuctionController {
 		}
 	}
 
-	public static boolean placeABid(AuctionBid auctionBid) throws Exception{
+	public boolean placeABid(AuctionBid auctionBid) throws Exception{
+		UserController uc = new UserController(peerDHT);
 		boolean response = false;
 
 		// Ottiene l'auction per la quale piazzare la bid.
 		Auction auctionTarget = null;
 		try {
-			auctionTarget = AuctionController.getAuction(auctionBid.getAuctionName());
+			auctionTarget = this.getAuction(auctionBid.getAuctionName());
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -168,7 +168,7 @@ public class AuctionController {
 		// Ottiene l'user che prova ad effettuare l'offerta
 		User bidder = null;
 		try {
-			bidder = UserController.getUser(auctionBid.getUsername());
+			bidder = uc.getUser(auctionBid.getUsername());
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -178,7 +178,7 @@ public class AuctionController {
 			// Controlla che lo stato dell'auction sia "ongoing".
 			if(auctionTarget.getStatus().equals(Auction.Status.ongoing)) {
 				// Controlla che l'utente sia abilitato ad effettuare l'offerta.
-				if(UserController.checkIfAbleToPlaceABid(bidder.getUsername()) ) {
+				if(uc.checkIfAbleToPlaceABid(bidder.getUsername()) ) {
 					// Controlla che l'utente che prova ad effettuare l'offerta sia DIVERSO dall'Owner dell'Auction
 					if(!bidder.getUsername().equals(auctionTarget.getOwnerUsername())) {
 
@@ -194,14 +194,14 @@ public class AuctionController {
 								auctionTarget.getBids().add(auctionBid);
 
 								//Aggiorna l'istanza auctionTarget
-								AuctionController.updateAuction(auctionTarget);
+								this.updateAuction(auctionTarget);
 
 
 								//Aggiunge l'auction per la quale e' stata effettuata l'offerta alla lista AuctionJoined dell'utente bidder
 								if(!bidder.getAuctionsJoined().contains(auctionTarget.getAuctionName())) {
 									bidder.getAuctionsJoined().add(auctionTarget.getAuctionName());
 									//Aggiorna l'istanza bidder
-									UserController.updateUser(bidder);
+									uc.updateUser(bidder);
 								}
 								response = true;
 							}else{
@@ -237,13 +237,13 @@ public class AuctionController {
 										auctionTarget.getBids().add(auctionBid);
 
 										//Aggiorna l'istanza auctionTarget
-										AuctionController.updateAuction(auctionTarget);
+										this.updateAuction(auctionTarget);
 
 										//Aggiunge l'auction alla quale � stata effettuata l'offerta alla lista AuctionJoined dell'utente bidder
 										if(!bidder.getAuctionsJoined().contains(auctionTarget.getAuctionName())) {
 											bidder.getAuctionsJoined().add(auctionTarget.getAuctionName());
 											//Aggiorna l'istanza bidder
-											UserController.updateUser(bidder);
+											uc.updateUser(bidder);
 										}
 										response = true;
 									}else {
@@ -266,16 +266,16 @@ public class AuctionController {
 		}else {
 			throw new Exception("Impossible to place the bid. User who wants to place the bid does not exist.");
 		}
-		AuctionController.updateAuction(auctionTarget);
+		this.updateAuction(auctionTarget);
 		return response;
 	}
 
 	/*
 	Restituisce la lista delle AuctionBid, ordinata in modo decrescente rispetto al parametro bidAmount, piazzate sull'Auction il cui auctionName � passato come parametro di input.
 	 */
-	public static List<AuctionBid> getAuctionBidsByAuction(String auctionName) throws Exception{
+	public List<AuctionBid> getAuctionBidsByAuction(String auctionName) throws Exception{
 		// Ottiene l'auction per la quale bisogna ottenere la lista delle bid.
-		Auction auctionTarget = AuctionController.getAuction(auctionName);
+		Auction auctionTarget = this.getAuction(auctionName);
 
 		if(auctionTarget == null) { 
 			throw new Exception("Impossible to retrieve the list of all the AuctionBids placed on the current Auction. Plese insert a correct auction name.");
@@ -291,8 +291,8 @@ public class AuctionController {
 
 	}
 
-	public static AuctionBid getTheHighestAuctionBidByAuction(String auctionName) throws Exception{
-		List<AuctionBid> auctionBidsByAuction = AuctionController.getAuctionBidsByAuction(auctionName);
+	public AuctionBid getTheHighestAuctionBidByAuction(String auctionName) throws Exception{
+		List<AuctionBid> auctionBidsByAuction = this.getAuctionBidsByAuction(auctionName);
 		if(auctionBidsByAuction != null && !auctionBidsByAuction.isEmpty()) {
 			return auctionBidsByAuction.get(0);
 		}else {
@@ -301,8 +301,8 @@ public class AuctionController {
 	}
 
 
-	public static List<AuctionBid> getAuctionBidsByAuctionAndUsername(String auctionName, String username) throws Exception{
-		List<AuctionBid> auctionBidsByAuction = AuctionController.getAuctionBidsByAuction(auctionName);
+	public List<AuctionBid> getAuctionBidsByAuctionAndUsername(String auctionName, String username) throws Exception{
+		List<AuctionBid> auctionBidsByAuction = this.getAuctionBidsByAuction(auctionName);
 		List<AuctionBid> auctionBidsByAuctionAndUsername = new ArrayList<AuctionBid>();
 		for(int i=0; i<auctionBidsByAuction.size(); i++) {
 			if(auctionBidsByAuction.get(i).getUsername().equals(username)) {
@@ -316,8 +316,8 @@ public class AuctionController {
 		}
 	}
 
-	public static AuctionBid getTheHighestAuctionBidPlacedByAnUser(String auctionName, String username) throws Exception{
-		List<AuctionBid> auctionBidsByAuctionAndUsername = AuctionController.getAuctionBidsByAuctionAndUsername(auctionName, username);
+	public AuctionBid getTheHighestAuctionBidPlacedByAnUser(String auctionName, String username) throws Exception{
+		List<AuctionBid> auctionBidsByAuctionAndUsername = this.getAuctionBidsByAuctionAndUsername(auctionName, username);
 		if(auctionBidsByAuctionAndUsername != null && !auctionBidsByAuctionAndUsername.isEmpty()) {
 			return auctionBidsByAuctionAndUsername.get(0);
 		}else {
@@ -327,7 +327,7 @@ public class AuctionController {
 
 
 
-	public static Auction.Status checkAuctionStatus(Auction auction) throws Exception {
+	public Auction.Status checkAuctionStatus(Auction auction) throws Exception {
 		if(auction!=null) {
 			Auction.Status before = auction.getStatus();
 
@@ -339,7 +339,7 @@ public class AuctionController {
 			}
 
 			// Effettua l'update dell'Auction
-			AuctionController.updateAuction(auction);
+			this.updateAuction(auction);
 
 			return before;
 
@@ -348,7 +348,9 @@ public class AuctionController {
 		}
 	}
 
-	public static void updateAuctionWinners(Auction auction, Auction.Status before) throws Exception {
+	public void updateAuctionWinners(Auction auction, Auction.Status before) throws Exception {
+		UserController uc = new UserController(peerDHT);
+		
 		if(auction!=null) {
 			Auction.Status after = auction.getStatus();
 
@@ -364,7 +366,7 @@ public class AuctionController {
 					if( bids.size() > auction.getSlots() ){
 						for(int i=0; i<auction.getSlots(); i++){
 
-							User winner = UserController.getUser(bids.get(i).getUsername());
+							User winner = uc.getUser(bids.get(i).getUsername());
 							double priceToPay = bids.get(i+1).getBidAmount();
 
 							auction.getWinners().put(winner.getUsername(), priceToPay);
@@ -372,32 +374,32 @@ public class AuctionController {
 							//Aggiunge la auction alla lista delle auction vinte dell'User winner 
 							winner.getAuctionsWon().add(auction.getAuctionName());
 							//Effettua l'update dell'User per aggiornare la lista delle auction vinte
-							UserController.updateUser(winner);
+							uc.updateUser(winner);
 						}	
 					}else{	
 						// Se il numero di AuctionBid piazzate � minore o uguale del numero di slot, il numero di vincitori e' pari al numero di bids e l'ultimo vincitore paga il proprio prezzo offerto.
 						for(int i=0; i<bids.size()-1; i++){
-							User winner = UserController.getUser(bids.get(i).getUsername());
+							User winner = uc.getUser(bids.get(i).getUsername());
 							double priceToPay = bids.get(i+1).getBidAmount();
 							auction.getWinners().put(winner.getUsername(), priceToPay);
 
 							//Aggiunge la auction alla lista delle auction vinte dell'user 
 							winner.getAuctionsWon().add(auction.getAuctionName());
 							//Effettua l'update dell'User per aggiornare la lista delle auction vinte
-							UserController.updateUser(winner);
+							uc.updateUser(winner);
 						}
 
-						User winner = UserController.getUser(bids.get(bids.size()-1).getUsername());
+						User winner = uc.getUser(bids.get(bids.size()-1).getUsername());
 						double priceToPay = bids.get(bids.size()-1).getBidAmount();
 						auction.getWinners().put(winner.getUsername(), priceToPay);
 
 						//Aggiunge la auction alla lista delle auction vinte dell'user 
 						winner.getAuctionsWon().add(auction.getAuctionName());
 						//Effettua l'update dell'User per aggiornare la lista delle auction vinte
-						UserController.updateUser(winner);
+						uc.updateUser(winner);
 					}
 					//Effettua l'update dell'Auction per aggiornare la lista dei vincitori
-					AuctionController.updateAuction(auction);
+					this.updateAuction(auction);
 				}
 			}	
 
