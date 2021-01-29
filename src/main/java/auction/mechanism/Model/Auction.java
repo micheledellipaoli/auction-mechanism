@@ -27,25 +27,36 @@ public class Auction implements Serializable{
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-		// Flag che serve ad effettuare la transizione da "ongoing" ad "ended", UN'UNICA VOLTA.
+		/* 
+		 * ITA: Flag utile ad effettuare la transizione dello Status da "ongoing" ad "ended" esattamente UN'UNICA VOLTA.
+		 * ENG: Flag used to do the transition of the Auction Status from "ongoing" to "ended" exactly ONE TIME.
+		 */
 		this.flagFirstTimeSetStatus = false;
 		this.ownerUsername = ownerUsername;
 		this.winners = new HashMap<String, Double>();		
 	}
 	
-	// Converte una data dal TimeZone di default del sistema al TimeZone "Europe/Rome"
+	// Converte una data dal TimeZone di default del sistema al TimeZone "Europe/Rome".
 	public static Calendar getLocalTime(Calendar date) {
 		Calendar convertedDate = date;
 		convertedDate.setTimeZone(TimeZone.getTimeZone("Europe/Rome"));
 	    return convertedDate;
 	}
 
+	/**
+	* ITA: Controlla la endDate dell'Auction per modificarne eventualmente lo Status. Nel caso la endDate fosse trascorsa, setta lo stato dell'Auction a "ended", e il boolean flagFirstTimeSetStatus pari a true.
+	* ENG: Check the endDate of the Auction to eventually change the Status. If the endDate is expired, set the Auction status to "ended", and the boolean parameter flagFirstTimeSetStatus to true.
+	*/
 	public void checkDateAndSetStatus() throws Exception {
 		if(this.getEndDate() != null) {
+			// Controlla se la endDate è trascorsa.
 			if( this.getEndDate().after(Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"))) ) {
 				this.status = Status.ongoing;
 			}else {
-				// Se il flag e' false, la transizione da "ongoing" ad "ended" non e' ancora avvenuta, dunque la si esegue.
+				/* 
+				 * Se la endDate è trascorsa, controlla se il parametro flagFirstTimeSetStatus e' false, ovvero se la transizione da "ongoing" ad "ended" non e' ancora avvenuta. 
+				 * In tal caso, esegue la transizione e setta il flag a true.
+				 */
 				if(!this.flagFirstTimeSetStatus) {
 					this.flagFirstTimeSetStatus = true;
 					this.status = Status.ended;
@@ -97,7 +108,7 @@ public class Auction implements Serializable{
 	}
 
 	public List<AuctionBid> getBids() {
-		//Ordina le AuctionBids in ordine decrescente in base al parametro BidAmount. 
+		// Ordina le AuctionBids in ordine decrescente in base al parametro BidAmount. 
 		Collections.sort(this.bids, new SortBidsByBidAmount());
 		return this.bids;
 	}

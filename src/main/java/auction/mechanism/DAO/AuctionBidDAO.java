@@ -1,3 +1,4 @@
+
 package auction.mechanism.DAO;
 
 import java.io.IOException;
@@ -13,6 +14,14 @@ import net.tomp2p.dht.PeerDHT;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.storage.Data;
 
+
+/**
+ * @author Michele Delli Paoli
+ *
+ * Unused Class because we've chosen to include the AuctionBid instances in the Auction object.
+ * So we don't need to register, find, update, de-register any AuctionBid instance in the P2P system.
+ * Every operation on an AuctionBid instance will be done using operations on Auction objects.  
+ */
 public class AuctionBidDAO {
 	
 	final private PeerDHT peerDHT;

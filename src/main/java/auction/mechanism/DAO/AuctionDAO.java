@@ -15,6 +15,10 @@ import auction.mechanism.Exception.AuctionNotFoundException;
 import auction.mechanism.Model.Auction;
 import auction.mechanism.Model.User;
 
+/**
+ * @author Michele Delli Paoli
+ *
+ */
 public class AuctionDAO {
 
 	final private PeerDHT peerDHT;
@@ -34,7 +38,13 @@ public class AuctionDAO {
 		return auctionDAOInstance;
 	}
 
-
+	
+	/**
+	 * Get a registered Auction instance using auctionName parameter.
+	 * @param auctionName Parameter used to find and get the registeredAuction instance.
+	 * @return the registered Auction instance found.
+	 * @throws Exception
+	 */
 	public Auction read(String auctionName) throws Exception {
 		FutureGet fg = this.peerDHT.get(Number160.createHash(auctionName)).getLatest().start().awaitUninterruptibly();
 		if (fg.isSuccess()) {
@@ -49,6 +59,12 @@ public class AuctionDAO {
 
 	/* The following methods are based on an "auctionIndex" list, which stores only the "auctionName" parameter of all Auctions registered, not the entire object*/
 
+	
+	/**
+	 * Get a List of all registered Auctions names.
+	 * @return a List of String which represents the names of all registered Auctions.
+	 * @throws Exception
+	 */
 	public List<String> readAllAuctionNames() throws Exception{
 		FutureGet fg = this.peerDHT.get(Number160.createHash("auctionIndex")).getLatest().start().awaitUninterruptibly();
 		if (fg.isSuccess()) {
@@ -61,6 +77,11 @@ public class AuctionDAO {
 	}	
 
 
+	/**
+	 * Register an Auction instance in the P2P system.
+	 * @param auction Instance to be registered.
+	 * @throws Exception
+	 */
 	public void create(Auction auction) throws Exception {
 		UserController uc = new UserController(peerDHT);
 		
@@ -151,6 +172,11 @@ public class AuctionDAO {
 	}
 
 
+	/**
+	 * Update an existing Auction registered instance with a new one which has the same auctionName parameter.
+	 * @param newAuction New instance which will replace the existing one. It must have the same auctionName parameter.
+	 * @throws Exception
+	 */
 	public void update(Auction newAuction) throws Exception {
 		// Ottenimento della lista auctionNames
 		List <String> auctionNames = this.readAllAuctionNames();
@@ -182,6 +208,12 @@ public class AuctionDAO {
 	}
 
 
+	/**
+	 * De-register an Auction registered instance.
+	 * @param auctionName Parameter used to find and de-register the existing Auction instance.
+	 * @return a boolean: true if method has been successfull, false otherwise.
+	 * @throws Exception
+	 */
 	public boolean delete(String auctionName) throws Exception {	
 		List<String> auctionNames = new ArrayList<String>();
 		Auction target = null;

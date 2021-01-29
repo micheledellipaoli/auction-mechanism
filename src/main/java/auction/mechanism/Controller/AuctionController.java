@@ -270,9 +270,12 @@ public class AuctionController implements AuctionControllerInterface{
 		return response;
 	}
 
-	/*
-	Restituisce la lista delle AuctionBid, ordinata in modo decrescente rispetto al parametro bidAmount, piazzate sull'Auction il cui auctionName � passato come parametro di input.
-	 */
+	/**
+	* ITA: Restituisce la lista delle AuctionBid, ordinata in modo decrescente rispetto al parametro bidAmount, piazzate sull'Auction il cui auctionName e' passato come parametro di input.
+	* ENG: Get the list of all AuctionBids, sorted by bidAmount parameter, placed on the Auction whose auctionName is passed as input parameter of the method.
+	* @param auctionName auctionName of the Auction for which we want to get the all the AuctionBids placed on it.
+	* @return a List of all the AuctionBids placed on the specified Auction. 
+	*/
 	public List<AuctionBid> getAuctionBidsByAuction(String auctionName) throws Exception{
 		// Ottiene l'auction per la quale bisogna ottenere la lista delle bid.
 		Auction auctionTarget = this.getAuction(auctionName);
@@ -291,6 +294,13 @@ public class AuctionController implements AuctionControllerInterface{
 
 	}
 
+	/**
+	* Unused method because it gets only the highest AuctionBid, while we often need to get the k-highest AuctionBid, where k is the number of slots of the Auction. 
+	* ITA: Restituisce la più alta offerta piazzata sull'Auction il cui auctionName e' passato come parametro di input.
+	* ENG: Get the highest AuctionBid placed on the Auction whose auctionName is passed as input parameter of the method.
+	* @param auctionName auctionName of the Auction for which we want to get the highest AuctionBid placed on it.
+	* @return the highest AuctionBid placed on the specified Auction. 
+	*/
 	public AuctionBid getTheHighestAuctionBidByAuction(String auctionName) throws Exception{
 		List<AuctionBid> auctionBidsByAuction = this.getAuctionBidsByAuction(auctionName);
 		if(auctionBidsByAuction != null && !auctionBidsByAuction.isEmpty()) {
@@ -300,7 +310,13 @@ public class AuctionController implements AuctionControllerInterface{
 		}
 	}
 
-
+	/**
+	* ITA: Restituisce tutte le offerte, ordinate in modo decrescente rispetto al parametro bidAmount, piazzate sull'Auction il cui auctionName e' passato come parametro di input.
+	* ENG: Get all the AuctionBids, sorted by bidAmount parameter, placed on the Auction whose auctionName is passed as input parameter of the method.
+	* @param auctionName auctionName of the Auction for which we want to get all the AuctionBids placed by the specified User.
+	* @param username username of the User for which we want to get the all the AuctionBids placed on the specified Auction.
+	* @return a List of all the AuctionBids placed by the specified User, on the specified Auction. 
+	*/
 	public List<AuctionBid> getAuctionBidsByAuctionAndUsername(String auctionName, String username) throws Exception{
 		List<AuctionBid> auctionBidsByAuction = this.getAuctionBidsByAuction(auctionName);
 		List<AuctionBid> auctionBidsByAuctionAndUsername = new ArrayList<AuctionBid>();
@@ -316,6 +332,13 @@ public class AuctionController implements AuctionControllerInterface{
 		}
 	}
 
+	/**
+	* ITA: Restituisce la più alta offerta piazzata dall'User il cui username è passato come parametro di input, sull'Auction il cui auctionName e' passato come parametro di input.
+	* ENG: Get the highest AuctionBid placed by the User whose username is passed as input parameter of the method, on the Auction whose auctionName is passed as input parameter of the method.
+	* @param auctionName auctionName of the Auction for which we want to get the highest AuctionBid placed by the specified User.
+	* @param username username of the User for which we want to get the highest AuctionBid placed on the specified Auction.
+	* @return the highest AuctionBid placed by the specified User, on the specified Auction. 
+	*/
 	public AuctionBid getTheHighestAuctionBidPlacedByAnUser(String auctionName, String username) throws Exception{
 		List<AuctionBid> auctionBidsByAuctionAndUsername = this.getAuctionBidsByAuctionAndUsername(auctionName, username);
 		if(auctionBidsByAuctionAndUsername != null && !auctionBidsByAuctionAndUsername.isEmpty()) {
@@ -327,11 +350,16 @@ public class AuctionController implements AuctionControllerInterface{
 
 
 
+	/**
+	* ITA: Controlla la endDate dell'Auction per verificarne lo stato. Nel caso la endDate fosse trascorsa, setta lo stato dell'Auction a "ended".
+	* ENG: Check the endDate of the Auction to verify the status. If the endDate is expired, set the Auction status to "ended".
+	* @param auction Auction for which we want to check the Status and eventually change it to "ended".
+	* @return the Auction Status value before the checking operation.
+	*/
 	public Auction.Status checkAuctionStatus(Auction auction) throws Exception {
 		if(auction!=null) {
 			Auction.Status before = auction.getStatus();
 
-			// Controlla la endDate dell'asta per verificarne lo stato. Nel caso la endDate e' passata, setta lo stato dell'auction a "ended".
 			try {
 				auction.checkDateAndSetStatus();
 			} catch (Exception e) {
@@ -348,6 +376,13 @@ public class AuctionController implements AuctionControllerInterface{
 		}
 	}
 
+	
+	/**
+	* ITA: Controlla lo status attuale dell'Auction per determinare se è evvenuta, per la prima volta, la transizione da "ongoing" a "ended". In tal caso, aggiorna la lista dei vincitori dell'Auction.
+	* ENG: Check the current Status of the Auction to determine if the transition from "ongoing" to "ended" has occurred for the first time. If so, it updates the Auction Winners list.
+	* @param auction Auction for which we want to verify the Status and eventually update the Auction Winners list.
+	* @param before Auction Status value before the checking operation, returned by checkAuctionStatus() method.
+	*/
 	public void updateAuctionWinners(Auction auction, Auction.Status before) throws Exception {
 		UserController uc = new UserController(peerDHT);
 		
@@ -359,10 +394,9 @@ public class AuctionController implements AuctionControllerInterface{
 
 				List<AuctionBid> bids = null;
 				bids = auction.getBids();
-				//bids = AuctionController.getAuctionBidsByAuction(auction.getAuctionName());
 
 				if(bids != null && !bids.isEmpty()) {
-					// Se il numero di AuctionBid piazzate � maggiore del numero di slot, il numero di vincitori e' pari al numero di slot.
+					// Se il numero di AuctionBid piazzate e' maggiore del numero di slot, il numero di vincitori e' pari al numero di slot.
 					if( bids.size() > auction.getSlots() ){
 						for(int i=0; i<auction.getSlots(); i++){
 

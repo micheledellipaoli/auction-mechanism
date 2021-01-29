@@ -39,6 +39,10 @@ public class UserController implements UserControllerInterface{
 		}
 	}
 
+	/**
+	* ITA: Verifica la validità della combinazione di username e password fornite, al fine di fornire la funzionalità di Login al sistema.
+	* ENG: Check if the combination of username and password is valid, in order to provide Login functionality to the system.
+	*/
 	public boolean checkPassword(String username, String password) throws Exception{
 		boolean response = false;
 		User user = getUser(username);
@@ -53,6 +57,11 @@ public class UserController implements UserControllerInterface{
 		}
 	}
 
+	
+	/**
+	* ITA: Verifica se l'User è abilitato ad effettuare offerte, controllando la validità dei campi Address-Info e Email PayPal.
+	* ENG: Check if the User id able to place any bid, by checking if the Address-Info and Email PayPal parameters are valids.
+	*/
 	public boolean checkIfAbleToPlaceABid(String username) throws Exception{
 		boolean response = false;
 		User user = getUser(username);
@@ -95,7 +104,12 @@ public class UserController implements UserControllerInterface{
 		}
 	}
 	
-	
+	/**
+	* ITA: Restituisce la lista delle Auction registrate dall'User il cui username è passato come parametro di input.
+	* ENG: Get the list of the Auctions registered by the specified User whose username is passed as input parameter.
+	* @param username username of the User for which we want to get the List of Auctions owned.
+	* @return List of the Auctions owned by the specified User.
+	*/
 	public List<Auction> getAuctionsOwned(String username) throws Exception{
 		List<String> auctionNamesOwned = null;
 		List<Auction> auctionsOwned = null;
@@ -112,6 +126,12 @@ public class UserController implements UserControllerInterface{
 		return auctionsOwned;
 	}
 	
+	/**
+	* ITA: Restituisce la lista delle Auction sulle quali lo specifico User ha piazzato almeno un'offerta.
+	* ENG: Get the list of the Auctions on which the specified User has been placed at least one AuctionBid.
+	* @param username username of the User for which we want to get the List of Auctions Joined.
+	* @return List of the Auctions joined by the specified User.
+	*/
 	public List<Auction> getAuctionsJoined(String username) throws Exception{
 		List<String> auctionNamesJoined = null;
 		List<Auction> auctionsJoined = null;
@@ -128,6 +148,12 @@ public class UserController implements UserControllerInterface{
 		return auctionsJoined;
 	}
 	
+	/**
+	* ITA: Restituisce la lista delle Auction vinte dallo specifico User.
+	* ENG: Get the list of the Auctions won by the specified User.
+	* @param username username of the User for which we want to get the List of Auctions Won.
+	* @return List of the Auctions won by the specified User.
+	*/
 	public List<Auction> getAuctionsWon(String username) throws Exception{
 		List<String> auctionNamesWon = null;
 		List<Auction> auctionsWon = null;

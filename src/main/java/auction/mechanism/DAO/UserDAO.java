@@ -17,7 +17,11 @@ import auction.mechanism.Model.Auction;
 import auction.mechanism.Model.AuctionBid;
 import auction.mechanism.Model.User;
 
-// Classe Singleton
+
+/**
+ * @author Michele Delli Paoli
+ *
+ */
 public class UserDAO {
 
 	final private PeerDHT peerDHT;
@@ -37,7 +41,13 @@ public class UserDAO {
 		return userDAOInstance;
 	}
 
-
+	
+	/**
+	 * Register a User instance in the P2P system.
+	 * @param user Instance to be registered.
+	 * @throws UsernameAlreadyTakenException
+	 * @throws IOException
+	 */
 	public void create(User user) throws UsernameAlreadyTakenException, IOException {
 		FuturePut fp = peerDHT.put(Number160.createHash(user.getUsername())).putIfAbsent().data(new Data(user)).start().awaitUninterruptibly();
 		if (!fp.isSuccess()){
@@ -46,6 +56,12 @@ public class UserDAO {
 	}
 
 
+	/**
+	 * Get a registered User instance using username parameter.
+	 * @param username Parameter used to find and get the registered User instance.
+	 * @return the registered User instance found.
+	 * @throws Exception
+	 */
 	public User read(String username) throws Exception {
 
 		FutureGet fg = peerDHT.get(Number160.createHash(username)).getLatest().start().awaitUninterruptibly();
@@ -61,6 +77,11 @@ public class UserDAO {
 	}
 
 
+	/**
+	 * Update an existing User registered instance with a new one which has the same username parameter.
+	 * @param newUser New instance which will replace the existing one. It must have the same username parameter.
+	 * @throws Exception
+	 */
 	public void update(User newUser) throws Exception {
 		User latestUser = this.read(newUser.getUsername());
 
@@ -76,6 +97,12 @@ public class UserDAO {
 	}
 
 
+	/**
+	 * De-register a User registered instance.
+	 * @param username Parameter used to find and de-register the existing User instance.
+	 * @return a boolean: true if method has been successfull, false otherwise.
+	 * @throws Exception
+	 */
 	public boolean delete(String username) throws Exception {	
 		FutureRemove fr = peerDHT.remove(Number160.createHash(username)).all().start().awaitUninterruptibly();
 		
