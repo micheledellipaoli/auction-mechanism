@@ -43,6 +43,7 @@ Because of this feature, I've chosen to make mandatory the fulfilling of the "Ad
 * Edit User password
 * Edit User Address-Info
 * Edit PayPal e-mail of the User
+* Delete User account
 
 <br>
 </p>
