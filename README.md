@@ -157,7 +157,7 @@ All the tests will be executed and the console will also show some exceptions ge
 
 ### Build your app in a Docker container
 
-To use the application using Docker, you should first clone the project from GitHub.
+To run the application using Docker, you should first clone the project from GitHub.
 
 1. Clone the project from Github running the following command:
     ```shell
