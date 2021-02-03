@@ -260,7 +260,7 @@ public class AuctionGUI {
 		TerminalProperties < ? > props = terminal.getProperties();
 		props.setPromptBold(true);
 		props.setPromptColor("cyan");
-		terminal.println("Welcome " + user.getUsername() + " to P2P Auction System");
+		terminal.println("Welcome " + user.getUsername() + " to Auction-Mechanism");
 		props.setPromptColor("#00ff00");
 		props.setPromptBold(false);
 

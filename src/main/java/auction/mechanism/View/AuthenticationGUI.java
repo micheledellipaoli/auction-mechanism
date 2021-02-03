@@ -124,7 +124,7 @@ public class AuthenticationGUI {
 
 		props.setPromptBold(true);
 		props.setPromptColor("cyan");
-		terminal.println("P2P Auction System");
+		terminal.println("Auction-Mechanism");
 		props.setPromptUnderline(true);
 		props.setPromptColor("#00ff00");
 		props.setPromptUnderline(false);
