@@ -104,7 +104,7 @@ The transition of the Status value is done only the first time that the method r
 <p>
 
 ### Testing
-There are 3 main Testing Classes:
+There are three main Testing Classes:
 * **UserControllerTest**<br>
 This class tests all the User functionalities and relative generated exceptions such as:
     1. User Registration method;
@@ -147,7 +147,7 @@ All the tests will be executed and the console will also show some exceptions ge
 <br>
 
 <p align="center">
-  <img src="C:\Users\Michele Delli Paoli\Desktop\MD Images\ConsoleTests.png">
+  ![Tests](https://github.com/micheledellipaoli/auction-mechanism/blob/master/MD_Images/ConsoleTests.png?raw=true)
 </p>
 
 </p>
@@ -189,7 +189,7 @@ To use the application using Docker, you should first clone the project from Git
     • after the first launch, you can launch the Master-Peer using the following command: 
         
     ```shell
-    docker start -i MASTER-PEER.
+    docker start -i MASTER-PEER
     ```
     <br>
 
