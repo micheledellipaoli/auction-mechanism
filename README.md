@@ -147,7 +147,7 @@ All the tests will be executed and the console will also show some exceptions ge
 <br>
 
 <p align="center">
-  ![Tests](https://github.com/micheledellipaoli/auction-mechanism/blob/master/MD_Images/ConsoleTests.png?raw=true)
+  ![ConsoleTests](https://user-images.githubusercontent.com/77967321/106736212-7482af00-6615-11eb-94c5-dac65438c316.png)
 </p>
 
 </p>
