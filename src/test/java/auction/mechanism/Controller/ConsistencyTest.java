@@ -25,7 +25,9 @@ import net.tomp2p.p2p.Peer;
 import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
 
-
+/*
+ * This Class tests the consistency of data in the system between multiple peers.
+*/
 public class ConsistencyTest {
 
 	private static final int NUMBER_OF_PEERS = 5;

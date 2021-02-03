@@ -28,6 +28,10 @@ import net.tomp2p.p2p.Peer;
 import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
 
+/*
+ * This class tests all the Auction functionalities and relative generated exceptions.
+ * Other than the registration, get and update methods, this class tests many cases where a User tries to place a bid.
+*/
 
 public class AuctionControllerTest {
 

@@ -20,8 +20,9 @@ import net.tomp2p.futures.FutureBootstrap;
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
-
-
+/*
+ * This class tests all the User functionalities and relative generated exceptions.
+*/
 public class UserControllerTest {
 
 	private PeerDHT peerDHT;
