@@ -1388,7 +1388,7 @@ public class AuctionGUI {
 		TerminalProperties < ? > props = terminal.getProperties();
 
 		props.setPromptColor("cyan");
-		terminal.println("Delete User Profilo");
+		terminal.println("Delete User Account");
 		props.setPromptColor("#00ff00");
 
 		terminal.println("\nUsername: " + user.getUsername());
