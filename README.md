@@ -34,7 +34,11 @@ Because of this feature, I've chosen to make mandatory the fulfilling of the "Ad
 * Registration of a new Auction
 * Get the list of all registered auctions
 * Get the list of the auctions registered by ther User (Owned Auctions)
+<<<<<<< HEAD
 * Get the list of the auctions on which the User have placed a bid (Joined Auctions)
+=======
+* Get the list of the auctions on which the User has placed a bid (Joined Auction)
+>>>>>>> 74c70d56356c7b810b6af6df09194fb9bb1a4512
 * Get the list of the auctions won by the User
 * Search for an Auction and show its details
 * Edit an auction owned by the User
@@ -94,7 +98,7 @@ Moreover, this thread would have been subject to an increasing workload as the n
 
 Thus, I've chosen to implement an endDate checking method which is invoked everytime that a peer access to a specic Auction instance.
 
-When a peer gets a specific Auction, the method compare the endDate to the current date and, if the Auction is expired, the Status will be changed from "ongoing" to "ended".<br>
+When a peer gets a specific Auction, the method compare the endDate of the Auction instance to the current date and, if the Auction instance is expired, the Status will be changed from "ongoing" to "ended".<br>
 The transition of the Status value is done only the first time that the method recognize that the endDate has expired.
 
 
