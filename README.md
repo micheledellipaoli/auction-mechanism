@@ -22,7 +22,7 @@ When the Auction ends, if multiple slots of the good are available, the bidder w
 Instead, if only one slot is available, only the highest bidder will win the auction and he will eventually pay the amount offered by himself in his winning bid, if no other bids have been placed by other bidders; otherwise he will pay the amount offered by the second-highest bidder, if other bids have been placed by other bidders. 
 
 Also, when the Auction ends, the owner will visualize the winners with their relative "shipping Address-Info" and "PayPal e-mail" to which send a paying request eventually.<br>
-Because of this feature, I've chosen to make mandatory the fulfilling of the "Address-Info" and "PayPal e-mail" forms in the User details, in order to guarantee that the Users who haven't fulfilled these forms yet can't be able to place any bid.
+Because of this feature, I've chosen to make mandatory the fulfilling of the "Address-Info" and "PayPal e-mail" forms in the User details, in order to guarantee that the Users who haven't fulfilled these forms yet are not able to place any bid.
 </p>
 <br>
 
@@ -34,7 +34,7 @@ Because of this feature, I've chosen to make mandatory the fulfilling of the "Ad
 * Registration of a new Auction
 * Get the list of all registered auctions
 * Get the list of the auctions registered by ther User (Owned Auctions)
-* Get the list of the auctions on which the User have placed a bid (Joined Auction)
+* Get the list of the auctions on which the User have placed a bid (Joined Auctions)
 * Get the list of the auctions won by the User
 * Search for an Auction and show its details
 * Edit an auction owned by the User
