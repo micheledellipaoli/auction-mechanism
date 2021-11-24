@@ -34,11 +34,7 @@ Because of this feature, I've chosen to make mandatory the fulfilling of the "Ad
 * Registration of a new Auction
 * Get the list of all registered auctions
 * Get the list of the auctions registered by ther User (Owned Auctions)
-<<<<<<< HEAD
-* Get the list of the auctions on which the User have placed a bid (Joined Auctions)
-=======
-* Get the list of the auctions on which the User has placed a bid (Joined Auction)
->>>>>>> 74c70d56356c7b810b6af6df09194fb9bb1a4512
+* Get the list of the auctions on which the User has placed a bid (Joined Auctions)
 * Get the list of the auctions won by the User
 * Search for an Auction and show its details
 * Edit an auction owned by the User
