@@ -220,7 +220,7 @@ To run the application using Docker, you should first clone the project from Git
 
     **Note that**: after the first launch, you can launch this Peer Node using the following command: 
     ```shell
-        docker start -ai PeerNode1
+        docker start -i PeerNode1
     ```
 
 </p>
