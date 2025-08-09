@@ -1,15 +1,7 @@
-# Auction-Mechanism
-
-**Author**: Michele Delli Paoli<br>
-**Homework**: Auction Mechanism<br>
-**MD5**: micheledellipaoli-31 = ce3c445e5d2d168eeb501a63764cd243
-
-<br>
-<p>
-<br>
+# Auction mechanism
 
 ### Description
-Auction-Mechanism is a second-price auction system based on a P2P network, developed using TomP2P library.
+Auction mechanism is a second-price auction system based on a P2P network, developed using TomP2P library.
 
 Each User can sell goods by registering a new Auction, or can buy a good by placing a bid on an existing Auction.
 
